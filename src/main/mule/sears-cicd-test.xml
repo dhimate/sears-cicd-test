@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="6aa96bda-4e5a-4d46-bbd3-b3bc2ed05bf8" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="sears-cicd-testFlow" doc:id="58bbe1ce-cf65-4b3d-8794-9928e98e9642" >
+		<http:listener doc:name="Listener" doc:id="cfffe2df-a91a-4ca2-8c59-418d40fca666" config-ref="HTTP_Listener_config" path="/cicd"/>
+		<set-payload value='#[output application/json --- 
+{
+	"message" : "hello-world"
+}]' doc:name="Set Payload" doc:id="4a4f06d4-5e6a-44a6-bdc6-8aaf66622ac9" />
+	</flow>
+</mule>
