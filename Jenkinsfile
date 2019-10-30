@@ -20,7 +20,7 @@ node {
    stage('Preparation') { // for display purposes
 
       sh 'echo $BRANCH_NAME'
-      git url: "git@github.com:dhimate/${sears-cicd-test}}.git"
+      git url: "git@github.com:dhimate/${projectName}.git"
       sh "git clean -f"
       sh "git reset --hard"
       sh "git checkout origin/$BRANCH_NAME"
