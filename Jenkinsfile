@@ -79,7 +79,12 @@ node {
    
    stage('Preparation') { // for display purposes
 	 println "in prep step"
-	 step ([$class: 'CopyArtifact', projectName: env.JOB_NAME]);
+	 step([  $class: 'CopyArtifact',
+                filter: 'target/*.jar',
+                fingerprintArtifacts: true,
+                projectName: '${JOB_NAME}',
+                selector: [$class: 'SpecificBuildSelector', buildNumber: '${BUILD_NUMBER}']
+        ])
      	  
 	   }
 	   
