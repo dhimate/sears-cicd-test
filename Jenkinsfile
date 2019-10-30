@@ -16,7 +16,8 @@ node {
    def workers = 1  // Options --> number of workers to deploy. (1 for non prod) (2 for prod / Stage(load test))
    def muleenvironment = "Development" //Options "Development", "QA", "Stage", "Production", "Design"
 	
-	
+   properties([copyArtifactPermission('*')])
+
    stage('Preparation') { // for display purposes
 
      
