@@ -19,21 +19,27 @@ node {
 	
    stage('Preparation') { // for display purposes
 
-      sh 'echo $BRANCH_NAME'
-      git url: "git@github.com:dhimate/${projectName}.git"
-      sh "git clean -f"
-      sh "git reset --hard"
-      sh "git checkout origin/$BRANCH_NAME"
+     
+              //git 'https://github.com/dhimate/gateway-proxy-domain.git'
+        	      //sh "'mvn' -Dmaven.test.failure.ignore clean package install"
+              git (
+                  url: 'https://github.com/dhimate/sears-cicd-test.git'
+                  )
+              sh 'git config credential.helper store'
+              sh 'git clean -f'
+              sh 'git checkout .'
+            
 
         
    } 
 	
-   withCredentials([  [$class: 'StringBinding', credentialsId: '249affc1-a3b2-41f9-84bd-7977681894b4', variable: 'HSMAVEN']]) {
+   
    stage('Build') {
 
 	  
       if ("$BRANCH_NAME"=='master') {
            sh 'mvn clean package -DskipMunitTests'
+           archiveArtifacts 'target/*.jar'
                 
       } else if ("$BRANCH_NAME"!='master') {
          def pom = readMavenPom file: 'pom.xml'
@@ -70,7 +76,7 @@ node {
             sh "git push -u origin development"
          }
       }
-   }
+   
    stage('Preparation') { // for display purposes
 	 println "in prep step"
 	 step ([$class: 'CopyArtifact', projectName: env.JOB_NAME]);
