@@ -33,10 +33,8 @@ node {
 
 	  
       if ("$BRANCH_NAME"=='master') {
-         {
-                    sh 'mvn clean package -DskipMunitTests'
-
-                }
+           sh 'mvn clean package -DskipMunitTests'
+                
       } else if ("$BRANCH_NAME"!='master') {
          def pom = readMavenPom file: 'pom.xml'
          POM_VERSION = readMavenPom().getVersion()
